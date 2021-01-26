@@ -60,7 +60,7 @@ const GraphPage = () => {
     console.log(dataToGraph);
   };
 
-  // TODO: make this look cleaner (load circle)
+  // TODO: make this look cleaner (load circle etc)
   if (loadingPlayers) {
     return (
       <div>

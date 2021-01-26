@@ -7,6 +7,10 @@ const playerService = {
     const res = await axios.get(baseUrl);
     return res.data;
   },
+  getHistory: async (playerId) => {
+    const res = await axios.get(`${baseUrl}/matchHistory/${playerId}`);
+    return res.data;
+  },
 };
 
 export default playerService;

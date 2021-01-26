@@ -23,7 +23,7 @@ const MatchPage = () => {
       <div>
         <List>
           {
-            players.map((player) => <CustomizedListItem player={player} />)
+            players.map((player) => <CustomizedListItem key={player.username} player={player} />)
           }
         </List>
       </div>

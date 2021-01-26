@@ -17,14 +17,10 @@ playerRouter.get('/', async (_req, res) => {
 });
 
 // test player id: 788da801-a3da-4cc6-87db-acbb612e9bb7
-// test url: localhost:3000/api/players/matchHistory?id=788da801-a3da-4cc6-87db-acbb612e9bb7&from=1605139200
-// TODO: parse matchhistory into object and pass it to res.json, maybe need map from match? idk we'll see
-playerRouter.get('/matchHistory/', async (req, res) => {
-  const url_parts = url.parse(req.url, true);
-  console.log(url_parts);
-  const urlQuery = querystring.parse(url_parts.query);
-  console.log(urlQuery);
-  const MATCHHISTORYURL = `${config.FACEIT_MATCHHISTORY_URL}/${url_parts.query.id}/history?game=csgo&from=${url_parts.query.from}%offset=08&limit=20`;
+// test url: localhost:3001/api/players/matchHistory/788da801-a3da-4cc6-87db-acbb612e9bb7
+// TODO: find final score of match and map that was played?
+playerRouter.get('/matchHistory/:id', async (req, res) => {
+  const MATCHHISTORYURL = `${config.FACEIT_MATCHHISTORY_URL}/${req.params.id}/history?game=csgo&offset=0&limit=20`;
   console.log(MATCHHISTORYURL);
 
   request.get({ ...config.FACEIT_API_AUTH, url: MATCHHISTORYURL }, async (err, response, body) => {
@@ -33,12 +29,22 @@ playerRouter.get('/matchHistory/', async (req, res) => {
     }
 
     const data = JSON.parse(body);
+    const parsedHistory = [];
     _.forEach(data.items, (match) => {
-      console.log(match.match_id);
-      console.log(match.finished_at);
+      const resObj = {
+        id: match.match_id,
+        finished: match.finished_at,
+        teams: {
+          faction1: match.teams.faction1.nickname,
+          faction2: match.teams.faction2.nickname
+        }, 
+        winner: match.results.winner
+      };
+      parsedHistory.push(resObj);
     });
-  });
 
+    res.json(parsedHistory);
+  });
 });
 
 playerRouter.get('/findByUsername/:username', async (req, res) => {
