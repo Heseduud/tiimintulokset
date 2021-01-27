@@ -3,7 +3,7 @@ import {
   List,
 } from '@material-ui/core';
 import playerService from '../services/players';
-import CustomizedListItem from './utils/customizedListItem';
+import MatchListItem from './utils/matchListItem';
 
 // TODO: mark match as analyzed for backend --> search for only not parsed matches
 const MatchPage = () => {
@@ -23,7 +23,7 @@ const MatchPage = () => {
       <div>
         <List>
           {
-            players.map((player) => <CustomizedListItem key={player.username} player={player} />)
+            players.map((player) => <MatchListItem key={player.username} player={player} />)
           }
         </List>
       </div>

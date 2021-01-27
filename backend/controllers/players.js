@@ -4,8 +4,6 @@
 
 const playerRouter = require('express').Router();
 const request = require('request');
-const url = require('url');
-const querystring = require('querystring');
 const _ = require('lodash');
 
 const Player = require('../models/player');
@@ -18,7 +16,6 @@ playerRouter.get('/', async (_req, res) => {
 
 // test player id: 788da801-a3da-4cc6-87db-acbb612e9bb7
 // test url: localhost:3001/api/players/matchHistory/788da801-a3da-4cc6-87db-acbb612e9bb7
-// TODO: find final score of match and map that was played?
 playerRouter.get('/matchHistory/:id', async (req, res) => {
   const MATCHHISTORYURL = `${config.FACEIT_MATCHHISTORY_URL}/${req.params.id}/history?game=csgo&offset=0&limit=20`;
   console.log(MATCHHISTORYURL);

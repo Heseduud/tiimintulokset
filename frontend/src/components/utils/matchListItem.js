@@ -4,8 +4,9 @@ import {
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import React, { useState } from 'react';
 import playerService from '../../services/players';
+import MatchDetailsItem from './matchDetailsItem';
 
-const CustomizedListItem = ({ player }) => {
+const MatchListItem = ({ player }) => {
   const [open, setOpen] = useState(false);
   // Need state for this as we don't fetch all players' histories automatically to avoid unnecessary
   // api calls
@@ -35,7 +36,13 @@ const CustomizedListItem = ({ player }) => {
         <List>
           {
             matches
-              ? matches.map((match) => <ListItemText key={match.id} primary={match.id} />)
+              ? matches.map((match) => (
+                <MatchDetailsItem
+                  key={match.id}
+                  style={{ paddingLeft: 30 }}
+                  match={match}
+                />
+              ))
               : null
           }
         </List>
@@ -45,4 +52,4 @@ const CustomizedListItem = ({ player }) => {
   );
 };
 
-export default CustomizedListItem;
+export default MatchListItem;

@@ -1,6 +1,5 @@
 /**
  * Endpoint for getting stats from db,
- * Initially just for all stats
  */
 
 const statsRouter = require('express').Router();
