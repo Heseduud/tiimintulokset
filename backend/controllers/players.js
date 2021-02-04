@@ -4,6 +4,7 @@
 
 const playerRouter = require('express').Router();
 const request = require('request');
+const axios = require('axios');
 const _ = require('lodash');
 
 const Player = require('../models/player');
@@ -18,8 +19,8 @@ playerRouter.get('/', async (_req, res) => {
 // test url: localhost:3001/api/players/matchHistory/788da801-a3da-4cc6-87db-acbb612e9bb7
 playerRouter.get('/matchHistory/:id', async (req, res) => {
   const MATCHHISTORYURL = `${config.FACEIT_MATCHHISTORY_URL}/${req.params.id}/history?game=csgo&offset=0&limit=20`;
-  console.log(MATCHHISTORYURL);
 
+  // TODO: refactor this to use axios, no idea why i initially used request
   request.get({ ...config.FACEIT_API_AUTH, url: MATCHHISTORYURL }, async (err, response, body) => {
     if (err) {
       console.error(err);
@@ -44,27 +45,36 @@ playerRouter.get('/matchHistory/:id', async (req, res) => {
   });
 });
 
-playerRouter.get('/findByUsername/:username', async (req, res) => {
+playerRouter.get('/info/:username', async (req, res) => {
+  // If player name changes this doesn't work(?) need to test / find solution
   const playerToFind = await Player.findOne({ username: req.params.username });
 
-  // If player isn't found, get it from FACEIT api and save into db
   if (!playerToFind) {
-    request.get({ ...config.FACEIT_API_AUTH, url: `${config.FACEIT_PLAYER_URL}nickname=${req.params.username}` }, async (err, response, body) => {
-      if (err) {
-        console.error(err);
-      }
-
-      const data = JSON.parse(body);
-      const newPlayer = new Player({
-        username: data.nickname,
-        playerId: data.player_id,
+    try {
+      const playerData = await axios.get(`${config.FACEIT_PLAYER_URL}nickname=${req.params.username}`, {
+        headers: {
+          Authorization: config.FACEIT_API_TOKEN
+        }
       });
+      
+      res.send(playerData.data);
+    } catch (e) {
+      console.log(e);
+    }
 
-      const savedUser = await newPlayer.save();
-      res.json(savedUser);
-    });
+  } else {
+    res.status(403).send('Player is already in db');
   }
-  res.json(playerToFind);
+});
+
+playerRouter.post('/add', async (req, res) => {
+  const newPlayer = new Player({
+    username: req.body.username,
+    playerId: req.body.playerId
+  });
+
+  const saved = await newPlayer.save();
+  res.json(saved);
 });
 
 module.exports = playerRouter;
