@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import GraphPage from './components/graphPage';
 import MatchPage from './components/matchPage';
+import PlayerPage from './components/playerPage';
 import Sidebar from './components/sidebar';
 
 const drawerWidth = 220;
@@ -49,7 +50,7 @@ const App = () => {
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant='h6' noWrap>
-              Tiimin Tulokset Beta
+              Tiimin Tulokset Beta 0.0.1
             </Typography>
           </Toolbar>
         </AppBar>
@@ -60,10 +61,8 @@ const App = () => {
             <Route path='/graph'>
               <GraphPage />
             </Route>
-            <Route path='/analyze'>
-              <div>
-                <p>Not implemented</p>
-              </div>
+            <Route path='/players'>
+              <PlayerPage />
             </Route>
             <Route path='/matches'>
               <MatchPage />

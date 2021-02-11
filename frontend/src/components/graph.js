@@ -8,6 +8,9 @@ import statService from '../services/stats';
 const graphWidth = '1100px';
 const graphHeight = '700px';
 
+/*
+  TODO: date/week selector? can't just show all data once, fucks up the graph
+*/
 const GraphComponent = ({ data }) => {
   const [stats, setStats] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -17,7 +20,7 @@ const GraphComponent = ({ data }) => {
 
   useEffect(() => {
     setLoading(true);
-    // Spaghetti code, there's a better way to do this i'm sure
+    // Spaghetti code
     const fetchStats = async (players) => {
       const vals = {};
       const res = [];
@@ -40,7 +43,7 @@ const GraphComponent = ({ data }) => {
     if (data) {
       fetchStats(data.players);
     }
-  }, []);
+  }, [data]);
 
   const dateFormat = (unix) => {
     // eslint-disable-next-line radix

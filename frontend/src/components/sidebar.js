@@ -3,7 +3,7 @@ import {
   Drawer, Divider, ListItem, ListItemIcon, ListItemText, List,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Search, TrendingUp } from '@material-ui/icons';
+import { TrendingUp, AddBox } from '@material-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 
 const drawerWidth = 220;
@@ -54,8 +54,8 @@ const Sidebar = () => {
       <Divider />
       <List aria-label='main pages'>
         <ListItemLink to='/graph' primary='Graph' icon={<TrendingUp />} />
-        <ListItemLink to='/analyze' primary='Analyze game' icon={<Search />} />
-        <ListItemLink to='/matches' primary='Add matches' icon={<Search />} />
+        <ListItemLink to='/players' primary='Add players' icon={<AddBox />} />
+        <ListItemLink to='/matches' primary='Add matches' icon={<AddBox />} />
       </List>
     </Drawer>
   );

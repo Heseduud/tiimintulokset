@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
-  List,
+  List, Typography,
 } from '@material-ui/core';
 import playerService from '../services/players';
 import MatchListItem from './utils/matchListItem';
 
-// TODO: mark match as analyzed for backend --> search for only not parsed matches
 const MatchPage = () => {
   const [players, setPlayers] = useState(null);
 
@@ -21,6 +20,7 @@ const MatchPage = () => {
   if (players !== null) {
     return (
       <div>
+        <Typography variant='h4' component='h4'>Add a match!</Typography>
         <List>
           {
             players.map((player) => <MatchListItem key={player.username} player={player} />)

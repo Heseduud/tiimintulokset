@@ -7,7 +7,7 @@ import GraphComponent from './graph';
 import GraphForm from './graphForm';
 import playerService from '../services/players';
 
-// TODO: rest of "form" for graph, maybe refactor to another component
+// TODO:
 // Graph submit button --> pass data to graph component --> render it, needs loading indic?
 // Graph component gonna need some work, like different color lines for each player?
 
@@ -23,41 +23,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GraphPage = () => {
-  // const [players, setPlayers] = useState();
   const [loadingPlayers, setLoadingPlayers] = useState(true);
-  // const [showGraph, setShowGraph] = useState(false);
-  // const [openMenu, setOpenMenu] = useState(false);
   const [playerCheck, setPlayerCheck] = useState({});
   const [dataToGraph, setDataToGraph] = useState(null);
 
   useEffect(() => {
     const fetchPlayers = async () => {
       const playerData = await playerService.getAll();
-      // setPlayers(playerData);
-      console.log(playerData);
       playerData.forEach((player) => {
         setPlayerCheck((prevState) => ({
           ...prevState,
           [player.username]: false,
         }));
       });
-      // for (const player of playerData) {
-      //   setPlayerCheck(prevState => ({
-      //     ...prevState,
-      //     [player.username]: false
-      //   }))
-      // }
       setLoadingPlayers(false);
     };
 
     fetchPlayers();
   }, []);
 
-  // const classes = useStyles();
-
   const handleFormCallback = (data) => {
     setDataToGraph(data);
-    console.log(dataToGraph);
   };
 
   // TODO: make this look cleaner (load circle etc)
