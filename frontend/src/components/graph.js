@@ -26,13 +26,15 @@ const GraphComponent = ({ data }) => {
       const res = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const player of players) {
-        res.push(statService.getOne(player));
+        res.push(statService.getOne(player, data.startAt, data.endAt));
       }
 
       Promise.all(res).then((values) => {
         // eslint-disable-next-line no-restricted-syntax
         for (const val of values) {
-          vals[val[0].nickname] = val;
+          if (val[0] !== undefined) {
+            vals[val[0].nickname] = val;
+          }
         }
         setStats(vals);
         setLoading(false);
@@ -107,9 +109,10 @@ const GraphComponent = ({ data }) => {
         case 'max': return maxTick;
         case 'min': return minTick;
         case 'all':
-          for (let i = minTick; i <= maxTick; i += 20 * 60 * 60) {
+          for (let i = minTick; i <= maxTick; i += 86400) {
             allTicks.push(i);
           }
+          console.log(allTicks);
           return allTicks;
         default:
           return null;

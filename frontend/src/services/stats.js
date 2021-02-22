@@ -12,8 +12,8 @@ const statService = {
     const res = await axios.get(baseUrl);
     return res.data;
   },
-  getOne: async (name) => {
-    const res = await axios.get(`${baseUrl}/${name}`);
+  getOne: async (name, start, end) => {
+    const res = await axios.post(`${baseUrl}/${name}`, { start, end });
     return res.data;
   },
 };
