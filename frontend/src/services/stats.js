@@ -16,6 +16,10 @@ const statService = {
     const res = await axios.post(`${baseUrl}/${name}`, { start, end });
     return res.data;
   },
+  getOnePlotly: async (name, start, end, wantedStat) => {
+    const res = await axios.post(`${baseUrl}/graph/${name}`, { start, end, wantedStat });
+    return res.data;
+  },
 };
 
 export default statService;

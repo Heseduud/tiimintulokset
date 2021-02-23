@@ -2,6 +2,7 @@
  * Endpoint for getting stats from db
  */
 
+const _ = require('lodash');
 const statsRouter = require('express').Router();
 const Stats = require('../models/stats');
 
@@ -14,13 +15,33 @@ statsRouter.post('/:id', async (req, res) => {
   const start = req.body.start / 1000;
   const end = req.body.end / 1000;
 
-  console.log(start, end);
   const stats = await Stats.find({
     nickname: req.params.id,
     timestamp: { $gte: start, $lte: end }
   });
-  console.log(stats);
+
   res.json(stats);
+});
+
+statsRouter.post('/graph/:name', async (req, res) => {
+  const start = req.body.start / 1000;
+  const end = req.body.end / 1000;
+  const wantedStat = req.body.stat;
+
+  const stats = await Stats.find({
+    nickname: req.params.name,
+    timestamp: { $gte: start, $lte: end }
+  });
+
+  // y for stat, x for timestamp
+  const resObj = { x: [], y: [], name: req.params.name};
+  _.forEach(stats, (stat) => {
+    resObj.y.push(stat.kd);
+    resObj.x.push(stat.timestamp);
+  });
+
+  console.log(resObj);
+  res.json(resObj);
 });
 
 module.exports = statsRouter;
