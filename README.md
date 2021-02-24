@@ -7,7 +7,27 @@ Built with Nodejs using Express for backend, frontend with React and database fr
 
 ## How to install and run locally
 
-> Docker support coming to ease this process
+### Production build (run as-is):
+
+Be sure you have installed [Docker](https://www.docker.com/get-started) AND [Docker-compose](https://docs.docker.com/compose/install/) locally.
+Fork or clone the repo.
+
+To run the backend succesfully, you'll need an FACEIT API token and a MongoDB atlas database.
+Create an .env file in the backend root directory (tiimintulokset/backend/.env) with the following content:
+```sh
+MONGODB_URI=<YOUR MONGODB URI HERE>
+FACEIT_API_KEY=Bearer <YOUR FACEIT API TOKEN HERE>
+PORT=<3001>
+```
+
+After this, just run the following in the root directory (grab a cup of coffee or tea while you're at it, might take a while on the first build):
+```
+docker-compose up
+```
+
+The app will be accessible in your browser of choice at localhost:3000.
+
+### Developer:
 
 Fork or clone the repo and run npm install on both back- and frontend.
 
@@ -21,8 +41,6 @@ cd ../frontend
 npm install
 ```
 
-To run the backend succesfully, you'll need an FACEIT API token and a MongoDB atlas database.
-
 Create an .env file in the backend root directory with the following content:
 ```sh
 MONGODB_URI=<YOUR MONGODB URI HERE>
@@ -33,11 +51,13 @@ After this,
 ```sh
 npm start
 ```
-To run the backend locally in development mode. Frontend should run with just npm start without any configuration.
+To run the backend locally in development mode. Frontend will run with just npm start without any configuration.
 
 
 ## Release History
 
+* 0.0.2
+	* Working prototype with Docker support. Most of the main features work as intended.
 * 0.0.1
     * Initial commit to github, a rough skeleton for the project.
 
