@@ -85,8 +85,6 @@ const GraphForm = ({ initialState, callbackData }) => {
       }
     });
 
-    console.log(dataToSend);
-
     callbackData(dataToSend);
   };
 

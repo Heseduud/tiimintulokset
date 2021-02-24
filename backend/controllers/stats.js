@@ -40,7 +40,6 @@ statsRouter.post('/graph/:name', async (req, res) => {
     resObj.x.push(stat.timestamp);
   });
 
-  console.log(resObj);
   res.json(resObj);
 });
 

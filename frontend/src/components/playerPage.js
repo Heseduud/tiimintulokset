@@ -19,9 +19,7 @@ const PlayerPage = () => {
   const [playerInfo, setInfo] = useState(null);
 
   const handleSearch = async (username) => {
-    console.log(username);
     const data = await playerService.getPlayerInfo(username);
-    console.log(data);
     setInfo(data);
   };
 
