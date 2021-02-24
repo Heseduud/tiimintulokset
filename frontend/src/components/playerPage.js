@@ -1,4 +1,3 @@
-// import { TextField } from '@material-ui/core';
 import SearchBar from 'material-ui-search-bar';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +7,12 @@ import playerService from '../services/players';
 import PlayerInfo from './utils/playerInfo';
 
 const useStyles = makeStyles(() => ({
-  padding: {
-    paddingBottom: '30px',
+  margin: {
+    marginBottom: 60,
+  },
+  searchBox: {
+    paddingTop: 30,
+    paddingBottom: 30,
   },
 }));
 
@@ -26,13 +29,16 @@ const PlayerPage = () => {
   if (playerInfo !== null) {
     return (
       <div>
-        <Typography variant='h4' component='h4'>Add a player!</Typography>
-        <SearchBar
-          className={classes.padding}
-          value={search}
-          onChange={(v) => setSearch(v)}
-          onRequestSearch={() => handleSearch(search)}
-        />
+        <Typography variant='h5' className={classes.margin}>Add a player!</Typography>
+        <Divider />
+        <div className={classes.searchBox}>
+          <SearchBar
+            className={classes.padding}
+            value={search}
+            onChange={(v) => setSearch(v)}
+            onRequestSearch={() => handleSearch(search)}
+          />
+        </div>
         <Divider />
         <PlayerInfo data={playerInfo} />
       </div>
@@ -41,8 +47,12 @@ const PlayerPage = () => {
 
   return (
     <div>
+      <Typography variant='h5'>
+        Add a player!
+      </Typography>
+      <Divider />
       <SearchBar
-        className={classes.padding}
+        className={classes.margin}
         value={search}
         onChange={(v) => setSearch(v)}
         onRequestSearch={() => handleSearch(search)}

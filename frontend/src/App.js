@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import GraphPage from './components/graphPage';
 import MatchPage from './components/matchPage';
 import PlayerPage from './components/playerPage';
+import MainPage from './components/mainPage';
 import Sidebar from './components/sidebar';
 
 const drawerWidth = 220;
@@ -68,9 +69,7 @@ const App = () => {
               <MatchPage />
             </Route>
             <Route path='/'>
-              <div>
-                <p>Main page</p>
-              </div>
+              <MainPage />
             </Route>
           </Switch>
         </main>

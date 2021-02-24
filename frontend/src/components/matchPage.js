@@ -20,7 +20,7 @@ const MatchPage = () => {
   if (players !== null) {
     return (
       <div>
-        <Typography variant='h4' component='h4'>Add a match!</Typography>
+        <Typography variant='h5' component='h5'>Add a match!</Typography>
         <List>
           {
             players.map((player) => <MatchListItem key={player.username} player={player} />)

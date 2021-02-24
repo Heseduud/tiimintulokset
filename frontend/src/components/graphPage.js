@@ -7,10 +7,6 @@ import GraphComponent from './graph';
 import GraphForm from './graphForm';
 import playerService from '../services/players';
 
-// TODO:
-// Graph submit button --> pass data to graph component --> render it, needs loading indic?
-// Graph component gonna need some work, like different color lines for each player?
-
 // https://stackoverflow.com/questions/52615530/materialui-changing-the-color-textfield-on-focus
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme) => ({
@@ -61,10 +57,10 @@ const GraphPage = () => {
   if (dataToGraph !== null) {
     return (
       <div>
-        <GraphForm initialState={playerCheck} callbackData={handleFormCallback} />
         <Typography variant='h5'>
           Graph Page
         </Typography>
+        <GraphForm initialState={playerCheck} callbackData={handleFormCallback} />
         <GraphComponent data={dataToGraph} />
       </div>
     );
@@ -72,10 +68,10 @@ const GraphPage = () => {
 
   return (
     <div>
-      <GraphForm initialState={playerCheck} callbackData={handleFormCallback} />
       <Typography variant='h5'>
         Graph Page
       </Typography>
+      <GraphForm initialState={playerCheck} callbackData={handleFormCallback} />
     </div>
   );
 };
