@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  backend:
+    container_name: tiimintulokset-backend
+    build: ./backend
+    env_file: ./backend/.env
+    ports:
+      - "3001:3001"
+  frontend:
+    container_name: tiimintulokset-frontend
+    build: ./frontend
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - "backend"
