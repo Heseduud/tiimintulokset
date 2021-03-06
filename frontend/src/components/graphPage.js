@@ -16,9 +16,14 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 'bold',
     },
   },
+  graphContainer: {
+    marginTop: '30px',
+  },
 }));
 
 const GraphPage = () => {
+  const classes = useStyles();
+
   const [loadingPlayers, setLoadingPlayers] = useState(true);
   const [playerCheck, setPlayerCheck] = useState({});
   const [dataToGraph, setDataToGraph] = useState(null);
@@ -61,7 +66,9 @@ const GraphPage = () => {
           Graph Page
         </Typography>
         <GraphForm initialState={playerCheck} callbackData={handleFormCallback} />
-        <GraphComponent data={dataToGraph} />
+        <div className={classes.graphContainer}>
+          <GraphComponent data={dataToGraph} />
+        </div>
       </div>
     );
   }
@@ -71,7 +78,13 @@ const GraphPage = () => {
       <Typography variant='h5'>
         Graph Page
       </Typography>
-      <GraphForm initialState={playerCheck} callbackData={handleFormCallback} />
+      <div className={classes.graphContainer}>
+        <GraphForm
+          className={classes.graphBox}
+          initialState={playerCheck}
+          callbackData={handleFormCallback}
+        />
+      </div>
     </div>
   );
 };

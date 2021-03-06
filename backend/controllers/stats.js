@@ -33,11 +33,18 @@ statsRouter.post('/graph/:name', async (req, res) => {
     timestamp: { $gte: start, $lte: end }
   });
 
+  // Converts unix timestamp to YYYY-MM-DD format
+  const convertDate = (unix) => {
+    const date = new Date(unix*1000);
+    const dateString = date.toISOString();
+    return `${dateString.slice(0, 10)} ${dateString.slice(11, 19)}`;
+  };
+
   // y for stat, x for timestamp
   const resObj = { x: [], y: [], name: req.params.name};
   _.forEach(stats, (stat) => {
     resObj.y.push(stat[wantedStat]);
-    resObj.x.push(stat.timestamp);
+    resObj.x.push(convertDate(stat.timestamp));
   });
 
   res.json(resObj);

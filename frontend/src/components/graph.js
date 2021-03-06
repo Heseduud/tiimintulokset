@@ -22,7 +22,10 @@ const GraphComponent = ({ data }) => {
       Promise.all(res).then((values) => {
         // eslint-disable-next-line no-restricted-syntax
         for (const val of values) {
-          vals.push({ ...val, mode: 'Scatter + Lines' });
+          vals.push({
+            ...val,
+            mode: 'Scatter + Lines',
+          });
         }
 
         setTestData(vals);
@@ -40,7 +43,7 @@ const GraphComponent = ({ data }) => {
       <div>
         <Plot
           data={testData}
-          layout={{ width: 1000, height: 800, title: 'Test Plotly' }}
+          layout={{ width: 1000, height: 800, title: 'Graph' }}
         />
       </div>
     );
