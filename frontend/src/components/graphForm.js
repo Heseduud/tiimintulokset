@@ -74,7 +74,7 @@ const GraphForm = ({ initialState, callbackData }) => {
 
     const dataToSend = {
       players: [],
-      dataKey: radioValue,
+      wantedStat: radioValue,
       startAt: startTimestamp,
       endAt: endTimestamp,
     };

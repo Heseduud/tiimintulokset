@@ -26,7 +26,7 @@ statsRouter.post('/:id', async (req, res) => {
 statsRouter.post('/graph/:name', async (req, res) => {
   const start = req.body.start / 1000;
   const end = req.body.end / 1000;
-  const wantedStat = req.body.stat;
+  const wantedStat = req.body.wantedStat;
 
   const stats = await Stats.find({
     nickname: req.params.name,
@@ -36,7 +36,7 @@ statsRouter.post('/graph/:name', async (req, res) => {
   // y for stat, x for timestamp
   const resObj = { x: [], y: [], name: req.params.name};
   _.forEach(stats, (stat) => {
-    resObj.y.push(stat.kd);
+    resObj.y.push(stat[wantedStat]);
     resObj.x.push(stat.timestamp);
   });
 
